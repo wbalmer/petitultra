@@ -62,9 +62,11 @@ resume = True
 plot = True
 
 from pathlib import Path
-Path(output_dir).mkdir(parents=True, exist_ok=True)
+
 
 if __name__ == '__main__':
+
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
     # load data, start species if needed for photometry
     # time.sleep(rank) # sleeping here to avoid two processes trying to write to species.ini at the same time
     # SpeciesInit()
@@ -495,16 +497,29 @@ if __name__ == '__main__':
         'plx': lambda x : gaussian_prior(x, 82.0248, 0.3583),
 
         'T_bottom': lambda x : uniform_prior(x, 2500, 25000),
-        'dPT_1': lambda x : uniform_prior(x, 0.05, 0.25),
-        'dPT_2': lambda x : gaussian_prior(x, 0.15, 0.01),
-        'dPT_3': lambda x : gaussian_prior(x, 0.18, 0.04),
-        'dPT_4': lambda x : gaussian_prior(x, 0.21, 0.05),
-        'dPT_5': lambda x : gaussian_prior(x, 0.16, 0.06),
-        'dPT_6': lambda x : gaussian_prior(x, 0.08, 0.025),
-        'dPT_7': lambda x : gaussian_prior(x, 0.06, 0.1),
-        'dPT_8': lambda x : uniform_prior(x, -0.05, 0.1),
-        'dPT_9': lambda x : uniform_prior(x, -0.05, 0.1),
-        'dPT_10': lambda x : uniform_prior(x, -0.05, 0.1),
+        # zj from diamondback
+        # 'dPT_1': lambda x : uniform_prior(x, 0.05, 0.25),
+        # 'dPT_2': lambda x : gaussian_prior(x, 0.15, 0.01),
+        # 'dPT_3': lambda x : gaussian_prior(x, 0.18, 0.04),
+        # 'dPT_4': lambda x : gaussian_prior(x, 0.21, 0.05),
+        # 'dPT_5': lambda x : gaussian_prior(x, 0.16, 0.06),
+        # 'dPT_6': lambda x : gaussian_prior(x, 0.08, 0.025),
+        # 'dPT_7': lambda x : gaussian_prior(x, 0.06, 0.1),
+        # 'dPT_8': lambda x : uniform_prior(x, -0.05, 0.1),
+        # 'dPT_9': lambda x : uniform_prior(x, -0.05, 0.1),
+        # 'dPT_10': lambda x : uniform_prior(x, -0.05, 0.1),
+        
+        # ash's derived from exo-rem for logg > 4
+        'dPT_1': lambda x : uniform_prior(x, 0.05, 0.25), # 3
+        'dPT_2': lambda x : gaussian_prior(x, 0.17, 0.06), # 2
+        'dPT_3': lambda x : gaussian_prior(x, 0.24, 0.07), # 1
+        'dPT_4': lambda x : gaussian_prior(x, 0.26, 0.05), # 0
+        'dPT_5': lambda x : gaussian_prior(x, 0.20, 0.06), # -1
+        'dPT_6': lambda x : gaussian_prior(x, 0.21, 0.10), # -2
+        'dPT_7': lambda x : gaussian_prior(x, 0.19, 0.18), # -3
+        'dPT_8': lambda x : uniform_prior(x, 0.01, 0.11),
+        'dPT_9': lambda x : uniform_prior(x, 0.02, 0.07),
+        'dPT_10': lambda x : uniform_prior(x, -0.15, 0.15),
 
         'C/O': lambda x : uniform_prior(x, 0.1, 1.0),
         'Fe/H': lambda x : uniform_prior(x, -0.5, 2.0),

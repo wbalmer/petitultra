@@ -7,7 +7,7 @@
 #SBATCH --nodes=3                     # Number of nodes
 #SBATCH --ntasks-per-node=128         # Number of tasks per node
 #SBATCH --cpus-per-task=1             # Number of CPU cores per task
-#SBATCH --time=6:00:00             # Maximum runtime (D-HH:MM:SS)
+#SBATCH --time=3-00:00:00             # Maximum runtime (D-HH:MM:SS)
 #SBATCH --mail-type=ALL               # Send email at job completion
 #SBATCH --mail-user=balmer@northwestern.edu  # Email address for notifications
 
