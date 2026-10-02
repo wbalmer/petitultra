@@ -11,11 +11,8 @@
 #SBATCH --mail-type=ALL               # Send email at job completion
 #SBATCH --mail-user=balmer@northwestern.edu  # Email address for notifications
 
-# Load any necessary modules or dependencies
-module load anaconda3/2022.05
-
 # Activate the virtual environment
-conda activate prt3
+mamba activate prt3
 
 # Run your Python script
 
