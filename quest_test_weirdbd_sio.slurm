@@ -14,10 +14,6 @@
 # get bashrc
 source /home/efn6832/.bashrc
 
-# # load module
-# module purge
-# eval "$(conda shell.bash hook)"
-
 # Activate the virtual environment
 mamba activate prt3
 
