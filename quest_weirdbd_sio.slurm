@@ -12,7 +12,8 @@
 #SBATCH --mail-user=balmer@northwestern.edu  # Email address for notifications
 
 # load module
-ml mamba
+module purge
+eval "$(conda shell.bash hook)"
 
 # Activate the virtual environment
 mamba activate prt3
