@@ -11,9 +11,12 @@
 #SBATCH --mail-type=ALL               # Send email at job completion
 #SBATCH --mail-user=balmer@northwestern.edu  # Email address for notifications
 
-# load module
-module purge
-eval "$(conda shell.bash hook)"
+# get bashrc
+source /home/efn6832/.bashrc
+
+# # load module
+# module purge
+# eval "$(conda shell.bash hook)"
 
 # Activate the virtual environment
 mamba activate prt3
