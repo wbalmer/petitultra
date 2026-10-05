@@ -11,6 +11,9 @@
 #SBATCH --mail-type=ALL               # Send email at job completion
 #SBATCH --mail-user=balmer@northwestern.edu  # Email address for notifications
 
+# load module
+ml mamba
+
 # Activate the virtual environment
 mamba activate prt3
 
