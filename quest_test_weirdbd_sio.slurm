@@ -17,6 +17,9 @@ source /home/efn6832/.bashrc
 # Activate the virtual environment
 mamba activate prt3
 
+# create arviz cache to avoid race condition error
+mkdir -p /home/efn6832/.cache/arviz/
+
 # Run your Python script
 
 mpiexec -n 104 python weird_clouds_bd_2M0624_sionuc_homog.py
