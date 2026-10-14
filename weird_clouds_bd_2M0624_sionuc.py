@@ -560,6 +560,7 @@ if __name__ == '__main__':
         
         return params
 
+    comm.Barrier()
 
     if rank==0:
 
@@ -590,6 +591,8 @@ if __name__ == '__main__':
         plt.yscale('log')
         plt.savefig(output_dir+'test_alldata_generation.png')
 
+    comm.Barrier()
+    
     sampler = ultranest.ReactiveNestedSampler(
         param_names,
         likelihood,
@@ -610,6 +613,8 @@ if __name__ == '__main__':
         # adaptive_nsteps=False,
         # max_nsteps=400
     )
+    
+    comm.Barrier()
 
     # run :
     result = sampler.run(min_num_live_points=nlive, dlogz=dlogz)
