@@ -72,16 +72,19 @@ if __name__ == '__main__':
     # SpeciesInit()
 
     data_path = './data/'
-    data = np.loadtxt(data_path+'2M0624_bin300.txt')
+    # data = np.loadtxt(data_path+'2M0624_bin300.txt')
+    data = np.loadtxt(data_path+'2288_0624-4521_bin0100.txt')
     
-    w = data[:,0]
-    f = data[:,1]
-    fe = data[:,2]
+    w = data[:,1]
+    f = data[:,3]
+    fe = data[:,4]
 
-    unit_conv = (u.erg/u.s/u.cm**2/u.cm).to(u.W/u.m**2/u.micron) # units of pRT models to units of data
+    plt.figure()
+    plt.errorbar(w, f, yerr=fe)
+    plt.show()
+    plt.close
 
     chem = PreCalculatedEquilibriumChemistryTable()
-
 
     rtpressures = np.logspace(-6, 3, 100) # set pressure range
     line_species = [
@@ -122,6 +125,9 @@ if __name__ == '__main__':
         wavelength_boundaries = [w[0]-0.1, w[-1]+0.1],
         line_opacity_mode='c-k' # lbl or c-k
     )
+
+    # unit_conv = (u.erg/u.s/u.cm**2/u.cm).to(u.W/u.m**2/u.micron)
+    unit_conv = (u.erg/u.s/u.cm**2/u.cm).to(u.mJy, equivalencies=u.spectral_density(atmosphere.get_wavelengths()*u.micron)) # units of pRT models to units of data
 
     def spectrum_generator(params, return_extras=False, quench_co2_off_co=True, quench_nitrogen=True):
         planet_radius = params['R_pl']* cst.r_jup_mean
