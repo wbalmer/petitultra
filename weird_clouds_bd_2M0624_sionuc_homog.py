@@ -58,7 +58,9 @@ checkpoint_file = output_dir+f'checkpoint_{retrieval_name}.hdf5'
 # sampling parameters
 dlogz = 0.5
 nlive = 400
-resume = True
+resume = False
+if not resume:
+    resume = "overwrite"
 plot = True
 
 from pathlib import Path
@@ -81,8 +83,27 @@ if __name__ == '__main__':
 
     plt.figure()
     plt.errorbar(w, f, yerr=fe)
+
+
+    def get_good_data(w,f,fe):
+            bad_idx_int = np.zeros_like(fe)
+            bad_idx_int[np.isnan(fe)] += 1
+            bad_idx_int[np.isnan(f)] += 1
+            bad_idx_int[fe==0] += 1
+            bad_idx_int[f==0] += 1
+            # bad_idx_int[w>16.0] += 1
+            # bad_idx_int[w<1.0] += 1
+            good_idxs = np.where(bad_idx_int == 0)
+            w = w[good_idxs]
+            f = f[good_idxs]
+            fe = fe[good_idxs]
+            return w, f, fe
+
+    w, f, fe = get_good_data(w,f,fe)
+
+    plt.errorbar(w, f, yerr=fe)
     plt.show()
-    plt.close
+    plt.close()
 
     chem = PreCalculatedEquilibriumChemistryTable()
 
@@ -115,7 +136,7 @@ if __name__ == '__main__':
                     'Fe(s)_amorphous__DHS'
                     ] # clouds
 
-    nsmresl = '300' # model resolution, R=1000 c-k
+    nsmresl = '160' # model resolution, R=1000 c-k
     atmosphere = Radtrans(
         pressures = rtpressures,
         line_species = [i+f'.R{nsmresl}' for i in line_species],
@@ -595,6 +616,10 @@ if __name__ == '__main__':
         plt.xscale('log')
         plt.yscale('log')
         plt.savefig(output_dir+'test_alldata_generation.png')
+
+    import psutil
+    process = psutil.Process()
+    print(process.memory_info().rss*1e-9)  # in gigabytes 
 
     sampler = ultranest.ReactiveNestedSampler(
         param_names,
